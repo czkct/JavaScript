@@ -1,30 +1,23 @@
-要更新的文件内容强烈建议使用标准的UTF-8编码
+版本回退：
+
+①、先查看由最近到最远的提交日志
+	命令格式：git log  或者  git log --pretty=oneline   后者会有更精简的显示
+		  git reflog 则可以查看所有分支的所有操作(包括commit 和reset 和已经被删除的commit)
+②、向前回退版本
+	命令格式：方式一：
+		  git reset --hard HEAD^  //回退上一个版本
+		  git reset --hard HEAD^^ //回退到上上个版本
+		  git reset --hard HEAD^^^//回退到上上上个版本 
+		  以此类推  ，  但是^不方便数
+		  方式二：
+		  git reset --hard HEAD~1 //回退到上一个版本
+		  git reset --hard HEAD~100 //回退前面第100个版本
+		  git reset --hard HEAD~X //回退到前面第X个版本
+		  方式三：
+		  根据①中看到的ID来回退到那个ID相对应的版本
+		  git reset --hard 3628164 //回退到commit id为3628164对应的那个版本
+
+工作区和暂存区的理解（非常浅显易懂）
 
 
-//下面的命令要全部在库文件夹目录下面执行
-
-①、创建一个版本库非常简单，首先，选择一个合适的地方，创建一个空目录wenjianjia：
-	命令格式： mkdir wenjianjia
-②、进入这个空目录
-	命令格式： cd wenjianjia
-③、显示当前目录
-	命令格式： pwd
-④、初始化目录（即将当前这个目录变成Git可以管理的仓库）
-	命令格式： git init
-
-//上面四个操作就创建好了仓库：
-
-
-
-//接下来就是添加文件到版本库
-
-
-1、首先要将想添加的文件放在库文件夹(上面创建的那个wenjianjia)下面
-
-2、git add 文件名.扩展名
-
-3、第二个步骤可以执行多次
-
-4、最后一个步骤命令：git commit -m  "更改说明"
-
-//第四个步骤就是将 2/3两个步骤中添加的文件  全部添加到库中  并且全部加上第四个步骤的说明！！
+Hey   Is changed！！！
