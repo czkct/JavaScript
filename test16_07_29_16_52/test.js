@@ -119,3 +119,7 @@ function doorSet() {
 		document.getElementById("twoDoor").checked = false;
 	}
 }
+
+/*
+丨根据一个字段对另一个字段进行检查 (两个字段中必填一个)丨判断至少有一个单选按钮被选(处理单选按钮)丨用一个字段控制另一个字段(通过当前字段值自动设置后面的某个字段的值)
+*/
