@@ -1,5 +1,10 @@
 window.onload = function() {
+	document.getElementById("testText").onclick = insert;
 	document.forms[0].onsubmit = validForm;
+}
+
+function insert() {
+	document.getElementById("heihei").value = this.innerText;
 }
 
 function validForm() {
@@ -8,74 +13,44 @@ function validForm() {
 	for(var i = 0; i < allTags.length; i++) {
 		validTag(allTags[i]);
 	}
-	return false; //不提交   只是检测一下   查看效果
+	return false;  //只是对字符串进行操作  不应该提交  提交就看不到了
 
-	function  validTag(thisTag) {
-		var outClass = ""; //该标签的新class
-		var allClasses = thisTag.className.split(" ");  //空格划分标签的class
+	function validTag(thisTag) {
+		var allClasses = thisTag.className.split(" ");
 
-		 //更新该标签的class
-		for(var j = 0; j < allClasses.length; j++) { 
-			outClass += validBasedOnClass(allClasses[j]) + " ";
-		}
-		thisTag.className = outClass;
-
-		//查看class中是否含有invalid类名  若有则设置相应的样式
-		if(outClass.indexOf("invalid") > -1) {
-			invalidLabel(thisTag.parentNode);
-			thisTag.focus();
-			if(thisTag.nodeName == "INPUT") {
-				thisTag.select();
+		for(var j = 0; j < allClasses.length; j++) {
+			if(allClasses[j] == "nameList") {
+				thisTag.value = setNameList(thisTag.value);
 			}
-			return false;
-		}
-		return true;
-
-		function validBasedOnClass(thisClass) {
-			var classBack = "";
-
-			switch(thisClass) {
-				case "":
-				case "invalid":
-					break;
-				case "phone":
-					if(!validPhone(thisTag.value)) {
-						classBack = "invalid ";
-					}
-					classBack += thisClass;
-					break;
-				default:
-					classBack += thisClass;
-			}
-			return classBack;
 		}
 
-		function validPhone(phoneNum) {
-			var re = /^\(?(\d{3})\)?[\.\-\/ ]?(\d{3})[\.\-\/ ]?(\d{4})$/;
-			/*
-			有一个可选的左圆括号\(?
-			有3个数字(\d{3})
-			有一个可选的右圆括号\)?
-			有一个可选的点号、连字符、正斜杠(/)或空格  [\.\-\/ ]?
-			有3个数字(\d{3})
-			有一个可选的点号、连字符、正斜杠(/)或空格  [\.\-\/ ]?
-			有4个数字(\d{4})
-			*/
-			var phoneArray = re.exec(phoneNum);
-			/*exec()方法在phoneNum上执行re中存储的正则表达式。
-			如果没有找到要搜索的模式，phoneArray就被设置为null。
-			否则，phoneArray就设置为一个数组，其中包含正则表达式存储的值*/
-			if(phoneArray) {
-				document.getElementById("phoneField").value = "(" + phoneArray[1] + ") " + phoneArray[2]
-				+ "-" + phoneArray[3];
-				return true;
+
+		function setNameList(inNameList) {
+			var newNames = new Array;    //新建一个数组
+			var newNameField = "";   //空白
+
+			var re = /\s*\n\s*/;  //   空白字符(任意个数)  +   换行符  + 空白字符(任意个数)
+			var nameList = inNameList.split(re); //用上面这个正则表达式进行划分 放到nameList集合中
+
+			re = /^(\S)(\S+)\s(\S)(\S+)$/; //^代表开头  $代表结尾  表达式写出了严格开始和结束
+
+			for(var k = 0; k < nameList.length; k++) {
+				if(nameList[k]) {
+					re.exec(nameList[k]);
+					//使用exec方法在字符串nameList[k]上执行正则表达式re，从而将字符串分隔为4个部分，并且
+					//自动地设置JavaScript内置的RegExp对象，这4个部分分别存储在
+					//RegExp.$1、RegExp.$2、RegExp.$3和RegExp.$4中
+					//前提是上面re中有四对圆括号分组
+					newNames[k] = RegExp.$1.toUpperCase() + RegExp.$2.toLowerCase() + " " +
+					RegExp.$3.toUpperCase() + RegExp.$4.toLowerCase();
+				}
 			}
-			return false;
-		}
-		function invalidLabel(parentTag) {
-			if(parentTag.nodeName == "LABEL") {
-				parentTag.className += " invalid";
+			newNames.sort(); //作用是排序   按照字典序排序
+			for(k = 0; k < newNames.length; k++) {
+				newNameField += newNames[k] + "\n";
 			}
+
+			return newNameField;
 		}
 	}
 }
