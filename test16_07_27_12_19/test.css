@@ -1,0 +1,16 @@
+body {
+	color: #000;
+	background-color: #FFF;
+}
+
+/*invalid是无效的意思*/
+/*input无效时的样式  inset 就是border框内嵌效果   而outset相应的就是外凸效果*/
+input.invalid {
+	background-color: #FF9;
+	border: 2px red inset;
+}
+
+label.invalid {
+	color:#F00;
+	font-weight: bold;
+}
