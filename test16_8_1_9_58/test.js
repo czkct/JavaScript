@@ -45,7 +45,6 @@ function validForm() {
 						classBack = "invalid ";
 					}
 					classBack += thisClass;
-					// alert(!validEmail(thisTag.value));
 					break;
 				default:
 					classBack += thisClass;
@@ -66,3 +65,5 @@ function validForm() {
 		}
 	}
 }
+
+//多使用alert进行调试！！！
