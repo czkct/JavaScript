@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Car Picker</title>
+	<link rel="stylesheet" href="test.css">
+	<script src="test.js"></script>
+</head>
+<body>
+<h2 class="centered">Car Picker</h2>
+
+<form action="someAction.cgi">
+	<p><label for="emailAddr">Email Address:<input id="emailAddr" type="text" size="30" class="reqd email"></label></p>
+	<!-- 邮箱地址 -->
+	<p>
+		<!-- 颜色选择的下拉列表 -->
+		Colors:
+		<select id="color" class="reqd">
+			<option value="" selected> Choose a color</option>
+			<option value="Red">Red</option>
+			<option value="Green">Green</option>
+			<option value="Blue">Blue</option>
+		</select>
+	</p>
+	<p>
+		<!-- 多选框 -->
+		Options:
+		<label for="sunroof"><input type="checkbox" id="sunroof" value="Yes">Sunroof(Two door only)</label>
+		<label for="pWindows"><input type="checkbox" id="pWindows" value="Yes">Power Windows</label>
+	</p>
+	<p>
+		<!-- 单选框 -->
+		Doors:&nbsp;&nbsp;
+		<label for="twoDoor"><input type="radio" id="twoDoor" name="DoorCt" value="Yes" class="radio">Two</label>
+		<label for="fourDoor"><input type="radio" id="fourDoor" name="DoorCt" value="Yes" class="radio">Four</label>
+		<!-- 这两个input中的name的作用就是单选项框是同一个  也就是这两个只能选择其一 -->
+	</p>
+	<p>
+		<label for="zip">
+			Enter your Zip code or pick the dealer nearest you:<br>
+			Zip: <input id="zip" type="text" size="5" maxlength="5" class="isZip dealerList">
+		</label>
+		<select id="dealerList" size="4" class="zip">
+			<option value="Lemon Grove">Lemon Grove</option>
+			<option value="Lomita">Lomita</option>
+			<option value="Long Beach">Long Beach</option>
+			<option value="Los Alamitos">Los Alamitos</option>
+			<option value="Los Angeles">Los Angeles</option>
+		</select>
+	</p>
+	<p>
+		<input type="submit" value="Submit">&nbsp;<input type="reset">
+	</p>
+</form>
+</body>
+</html>
