@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Js_Var_Test</title>
+	<script src="Js_Var_Test.js"></script>
+</head>
+<body>
+
+
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript"> 
+	
+		function outPut(s){ //定义一个输出函数 
+			document.writeln(s) 
+		} 
+		
+		var i=0; //定义全局变量 
+		
+		function outer(){ //定义外部函数 
+
+			outPut(i); //访问全局变量  输出0 
+			
+			function inner(){ //定义一个内部函数 
+				 
+				var i = 1; //定义局部变量
+
+				// i=1; 如果用隐式申明　那么就覆盖了全局变量i 
+
+				outPut(i); //输出的是局部变量i   值为1 
+
+			} 
+
+			inner(); 
+
+			outPut(i); //输出的是全部变量i  值为0 
+		} 
+
+		outer();
+/*
+输出结果为0 1 0，从上面就可以证明JS如果用var在函数体中声明变量，那么此变量在且只在该函数体内有效，函数运行结束时，本地变量即可销毁了。 
+*/
+</SCRIPT> 
+<br>
+===================================================================
+<br>
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript"> 
+	
+	function outPut(s){ //定义一个输出函数 
+		document.writeln(s) 
+	} 
+	
+	var i=0; //全局变量 
+	
+	function outer(){ //定义外部函数 
+		 
+		outPut(i); //访问全局变量 输出0 
+		 
+		function inner(){ //定义一个类部函数
+			outPut(i); //输出undefiend 
+			var i=1; 
+			outPut(i); //输出1 
+		} 
+
+		inner(); 
+
+		outPut(i); //输出0 
+	} 
+
+	outer(); 
+/*
+你可能认为输出结果是0 0 1 0，事实上在AS中确实是这样的，
+然而在JS中的输出却是0 undefined 1 0，
+为何会这样了？
+刚才我们说到了JS函数体中声明的本地变量在整个函数中都有效，
+因此在上面代码中 var i = 1;  在inner函数中都有效，
+(!!注意这句话:)实际上显式声明的变量i是在预编译时就已经编译到调用对象中了，
+不同于隐式声明变量在解释时才被定义为全局变量。
+所以在调用outPut(i)时，还没有*定义*i(未初始化i[没有给i赋值]),即i是undefined[未定义]的,
+此时的本地变量i仅仅只是*声明*了，因此输出了undefined。
+换一种理解方式：  
+声明一个变量i =  告诉你存在一个变量i(不实现它)，只是告诉你有这么个东西，让你开心一下
+定义这个变量i =  实现这个变量i的具体情况(给i赋值->此时真正在内存[堆或栈中]给变量i分配空间)
+
+所以上面55~59行的代码等效于下面代码：
+	function inner(){ 
+		var i; //定义但不赋值 
+		outPut(i); //undefiend 
+		i=1; 
+		outPut(i); //1 
+	} 
+
+为了避免上面的这类问题，因此在函数开始位置集中做函数声明是一个极力推荐的做法。 
+*/
+</SCRIPT> 
+
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript"> 
+	
+	function outPut(s){ //定义一个输出函数 
+		document.writeln(s) 
+	} 
+	var a = 3; 
+	var b = a; 
+	outPut(b); //3 
+	a = 4; 
+	outPut(a); //4 
+	outPut(b); //3
+/*
+对基本类型b进行赋值时，实际上是又开辟了一块内存空间，因此改变变量a的值对变量b没有任何影响。
+*/
+</SCRIPT> 
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript"> 
+
+	function outPut(s){ //定义一个输出函数 
+		document.writeln(s) 
+	} 
+	var a_array = [1,2,3]; 
+	var b_array = a_array; 
+	outPut(b_array); //1,2,3 
+	a_array[3] = 4; 
+	outPut(b_array);//1,2,3,4 
+/*
+上面是对引用类型的变量赋值，实际上他们传递的是对内存地址的引用，因此对a_array和b_array的存取，实际上都是操作的同一块内存区域。如果希望重新分配内存空间存储引用型变量，那么我就需要使用克隆方法或者自定义方法来复制引用变量的数据。
+*/
+</SCRIPT>
+
+　　
+
+</body>
+</html>
