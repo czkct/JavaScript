@@ -20,7 +20,7 @@ function setCookie() {
 	//换句话说，将cookie的过期日期设置为创建cookie6个月之后
 
 	var userName = document.getElementById("nameField").value;
-	document.cookie = "userName="+userName + ";expires=" + expires.toGMTString();
+	document.cookie = "userName="+userName + ";expires=" + expireDate.toGMTString();
 
 	document.getElementById("nameField").blur();
 	return false;
