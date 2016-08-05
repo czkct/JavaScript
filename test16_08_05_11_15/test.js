@@ -6,7 +6,7 @@ function nameFieldInit() {
 	if(document.cookie != "") { // 如果cookie不为空
 		userName = document.cookie.split("=")[1];   //用户名等于用等号划分后得到的数组中的第二个元素
 	}
-
+//浏览器不同cookie也不同
 	document.getElementById("nameField").value = userName;  //设置用户名
 	//这一句代码, 在页面加载后  判断完cookie  就运行， userName的值要么为"", 要么为cookie中的userName的值
 	document.getElementById("nameField").onblur = setCookie; //当id为nameField的元素失去焦点时， 为它设置Cookie
@@ -20,7 +20,8 @@ function setCookie() {
 	//换句话说，将cookie的过期日期设置为创建cookie6个月之后
 
 	var userName = document.getElementById("nameField").value;
-	document.cookie = "userName="+userName + ";expires=" + expireDate.toGMTString();
+	document.cookie = "userName=" + userName + ";expires=" + expireDate.toGMTString();
+	// alert(expireDate.toGMTString());
 
 	document.getElementById("nameField").blur();
 	return false;
